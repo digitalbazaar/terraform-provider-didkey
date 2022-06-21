@@ -1,64 +1,46 @@
-# Terraform Provider Scaffolding (Terraform Plugin SDK)
+# Terraform Provider DID Key
 
-_This template repository is built on the [Terraform Plugin SDK](https://github.com/hashicorp/terraform-plugin-sdk). The template repository built on the [Terraform Plugin Framework](https://github.com/hashicorp/terraform-plugin-framework) can be found at [terraform-provider-scaffolding-framework](https://github.com/hashicorp/terraform-provider-scaffolding-framework). See [Which SDK Should I Use?](https://www.terraform.io/docs/plugin/which-sdk.html) in the Terraform documentation for additional information._
+This repo is a companion repo to the [Call APIs with Terraform Providers](https://learn.hashicorp.com/collections/terraform/providers) Learn collection.
 
-This repository is a *template* for a [Terraform](https://www.terraform.io) provider. It is intended as a starting point for creating Terraform providers, containing:
-
- - A resource, and a data source (`internal/provider/`),
- - Examples (`examples/`) and generated documentation (`docs/`),
- - Miscellaneous meta files.
- 
-These files contain boilerplate code that you will need to edit to create your own Terraform provider. Tutorials for creating Terraform providers can be found on the [HashiCorp Learn](https://learn.hashicorp.com/collections/terraform/providers) platform.
-
-Please see the [GitHub template repository documentation](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template) for how to create a new repository from this template on GitHub.
-
-Once you've written your provider, you'll want to [publish it on the Terraform Registry](https://www.terraform.io/docs/registry/providers/publishing.html) so that others can use it.
+Visit the [`boilerplate`](https://github.com/hashicorp/terraform-provider-hashicups/tree/boilerplate) branch of this repository for this Terraform provider's specific starter template. The [Terraform Provider Scaffold](https://github.com/hashicorp/terraform-provider-scaffolding) is a quick-start repository for creating a Terraform provider. Use this GitHub template when you're ready to create your own custom provider.
 
 
-## Requirements
 
--	[Terraform](https://www.terraform.io/downloads.html) >= 0.13.x
--	[Go](https://golang.org/doc/install) >= 1.17
+## Build provider
 
-## Building The Provider
+Run the following command to build the provider
 
-1. Clone the repository
-1. Enter the repository directory
-1. Build the provider using the Go `install` command: 
-```sh
-$ go install
+```shell
+$ go build -o terraform-provider-didkey
 ```
 
-## Adding Dependencies
+## Local release build
 
-This provider uses [Go modules](https://github.com/golang/go/wiki/Modules).
-Please see the Go documentation for the most up to date information about using Go modules.
-
-To add a new dependency `github.com/author/dependency` to your Terraform provider:
-
-```
-go get github.com/author/dependency
-go mod tidy
+```shell
+$ go install github.com/goreleaser/goreleaser@latest
 ```
 
-Then commit the changes to `go.mod` and `go.sum`.
+```shell
+$ make release
+```
 
-## Using the provider
+You will find the releases in the `/dist` directory. You will need to rename the provider binary to `terraform-provider-didkey` and move the binary into [the appropriate subdirectory within the user plugins directory](https://learn.hashicorp.com/tutorials/terraform/provider-use?in=terraform/providers#install-hashicups-provider).
+## Test sample configuration
 
-Fill this in for each provider
+First, build and install the provider.
 
-## Developing the Provider
+```shell
+$ make install
+```
 
-If you wish to work on the provider, you'll first need [Go](http://www.golang.org) installed on your machine (see [Requirements](#requirements) above).
+Then, navigate to the `examples` directory.
 
-To compile the provider, run `go install`. This will build the provider and put the provider binary in the `$GOPATH/bin` directory.
+```shell
+$ cd examples
+```
 
-To generate or update documentation, run `go generate`.
+Run the following command to initialize the workspace and apply the sample configuration.
 
-In order to run the full suite of Acceptance tests, run `make testacc`.
-
-*Note:* Acceptance tests create real resources, and often cost money to run.
-
-```sh
-$ make testacc
+```shell
+$ terraform init && terraform apply
 ```
