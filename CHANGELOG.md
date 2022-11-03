@@ -1,6 +1,6 @@
 # terraform-provider-didkey ChangeLog
 
-## 2.0.1 - TBD
+## 2.0.1 - 2022-11-03
 
 ### Fixed
 - Use `crazy-max/ghaction-import-gpg@v5.2.0`.
